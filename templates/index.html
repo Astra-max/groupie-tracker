@@ -3,9 +3,168 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>{{.Title}}</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        
+        h1 {
+            color: white;
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 3em;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+        
+        .nav {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        
+        .nav a {
+            color: white;
+            text-decoration: none;
+            padding: 10px 20px;
+            background: rgba(255,255,255,0.2);
+            border-radius: 30px;
+            margin: 0 10px;
+        }
+        
+        .nav a:hover {
+            background: rgba(255,255,255,0.3);
+        }
+        
+        .stats {
+            text-align: center;
+            color: white;
+            font-size: 1.2em;
+            margin-bottom: 30px;
+            padding: 10px;
+            background: rgba(255,255,255,0.2);
+            border-radius: 10px;
+        }
+        
+        .artists-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 25px;
+            padding: 20px;
+        }
+        
+        .artist-card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            transition: all 0.3s ease;
+            text-decoration: none;
+            color: inherit;
+            display: block;
+        }
+        
+        .artist-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+        }
+        
+        .artist-image {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+            border-bottom: 3px solid #667eea;
+        }
+        
+        .artist-info {
+            padding: 20px;
+        }
+        
+        .artist-name {
+            font-size: 24px;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 10px;
+            border-bottom: 2px solid #f0f0f0;
+            padding-bottom: 10px;
+        }
+        
+        .artist-details {
+            font-size: 14px;
+            color: #666;
+        }
+        
+        .artist-details p {
+            margin: 8px 0;
+        }
+        
+        .artist-details strong {
+            color: #667eea;
+        }
+        
+        .member-count {
+            display: inline-block;
+            background: #667eea;
+            color: white;
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 12px;
+            margin-top: 10px;
+        }
+        
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2em;
+            }
+            
+            .artists-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
 </head>
 <body>
-    
+    <div class="container">
+        <h1>🎵 Groupie Trackers</h1>
+        
+        <div class="nav">
+            <a href="/">Home</a>
+            <a href="/search">Search Artists</a>
+        </div>
+        
+        <div class="stats">
+            <strong>Total Artists: {{len .Artists}}</strong> | Click on any artist to see their concert dates
+        </div>
+        
+        <div class="artists-grid">
+            {{range .Artists}}
+            <a href="/artist/{{.ID}}" class="artist-card">
+                <img src="{{.Image}}" alt="{{.Name}}" class="artist-image">
+                <div class="artist-info">
+                    <div class="artist-name">{{.Name}}</div>
+                    <div class="artist-details">
+                        <p><strong>Formed:</strong> {{.CreationDate}}</p>
+                        <p><strong>First Album:</strong> {{.FirstAlbum}}</p>
+                        <p><strong>Members:</strong> {{len .Members}}</p>
+                    </div>
+                    <span class="member-count">View Concerts →</span>
+                </div>
+            </a>
+            {{end}}
+        </div>
+    </div>
 </body>
 </html>
