@@ -1,0 +1,213 @@
+:root {
+    --minor-theme: #11dee9;
+    --minor-theme2: rgb(250, 109, 109);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: #0f000f;
+    min-height: 100vh;
+    padding: 20px;
+}
+
+.container {
+    width: 100%;
+    margin: 0 auto;
+    background-color: #1d1c1c;
+    border-radius: 0.6rem;
+    height: inherit;
+    overflow-x: scroll;
+}
+
+h1 {
+    color: #fff;
+    text-align: center;
+    margin-bottom: 30px;
+    font-size: 2.4rem;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.g-l {
+    color: var(--minor-theme2);
+}
+
+.nav {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.nav-bar {
+    display: flex;
+    align-items: center;
+    top: 0;
+    margin-bottom: 2rem;
+    justify-content: space-between;
+    background-color: #150016;
+}
+
+.nav a {
+    color: white;
+    text-decoration: none;
+    padding: 10px 20px;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 30px;
+    margin: 0 10px;
+}
+
+.nav a:hover {
+    background: rgba(255, 255, 255, 0.3);
+}
+
+.groupy {
+    font-size: 1.2rem;
+    color: #ecebeb;
+}
+
+.dash-elem {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    margin-top: 4rem;
+}
+
+.a-dash {
+    text-decoration: none;
+    font-size: 1rem;
+    font-weight: bold;
+    color: #a8a6a6;
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+}
+
+.display-section {
+    display: flex;
+    gap: 1.5rem;
+    height: 100vh;
+    padding: 0rem 0.4rem;
+}
+
+.side-bar {
+    width: 30%;
+    padding: 1rem 1rem;
+    background-color: #1d1c1c;
+    border-radius: 0.5rem;
+}
+
+.stats {
+    color: white;
+    font-size: 1.5rem;
+    margin-bottom: 3rem;
+    padding: 10px;
+}
+
+.artists-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 25px;
+    padding: 20px;
+}
+
+.artist-card {
+    background: rgb(41, 40, 40);
+    border-radius: 0.8rem;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s ease;
+    text-decoration: none;
+    color: inherit;
+    display: block;
+}
+
+.artist-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+}
+
+.artist-image {
+    width: 100%;
+    height: 12rem;
+    border-radius: 0.6rem;
+    object-fit: cover;
+}
+
+.artist-info {
+    padding: 20px;
+}
+
+.artist-name {
+    font-size: 24px;
+    font-weight: bold;
+    color: #fff;
+    margin-bottom: 10px;
+    padding-bottom: 10px;
+}
+
+.artist-details {
+    font-size: 14px;
+    color: #666;
+}
+
+.artist-details p {
+    margin: 8px 0;
+}
+
+.artist-details > p {
+    color: #c7c4c4;
+}
+
+.artist-img-cont {
+    padding: 0.4rem 0.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 0.8rem;
+}
+
+.art-members {
+    display: flex;
+    align-items: center;
+    opacity: 0.7;
+}
+
+.m-count {
+    padding-left: 0.5rem;
+    color: #f3f1f1;
+}
+
+.view-more {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.member-count {
+    display: inline-block;
+    background: rgb(31, 30, 30);
+    color: rgb(223, 220, 220);
+    padding: 0.7rem 1.2rem;
+    font-weight: bold;
+    border-radius: 20px;
+    font-size: 12px;
+}
+
+.member-count:hover {
+    background-color: #0da9b1;
+    font-weight: bold;
+}
+
+@media (max-width: 768px) {
+    h1 {
+        font-size: 2em;
+    }
+
+    .artists-grid {
+        grid-template-columns: 1fr;
+    }
+}

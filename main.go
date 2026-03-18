@@ -13,6 +13,9 @@ func main() {
     fmt.Println("🎸 Groupie Tracker Server Starting...")
     fmt.Println("======================================")
     
+    fs := http.FileServer(http.Dir("./static"))
+    http.Handle("/static/", http.StripPrefix("/static/", fs))
+
     client := api.NewClient()
     artists, locations, dates, relations, err := client.GetAllData()
     
@@ -37,7 +40,7 @@ func main() {
     http.HandleFunc("/search", handlers.SearchPageHandler(artists))
     http.HandleFunc("/search/results", handlers.SearchResultsHandler(artists))
     
-    port := ":8081"
+    port := ":8000"
     fmt.Printf("\n🌍 Server running on http://localhost%s\n", port)
     fmt.Println("📝 Press Ctrl+C to stop")
     fmt.Println("======================================")
