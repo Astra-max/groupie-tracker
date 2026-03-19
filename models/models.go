@@ -1,5 +1,14 @@
 package models
 
+
+// Events - get events with their time, date and location
+
+type Event struct {
+    Artist string
+    Date string
+    Location string
+}
+
 // Artist represents a band or artist's basic information
 type Artist struct {
     ID           int      `json:"id"`

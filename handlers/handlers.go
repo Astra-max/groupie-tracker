@@ -6,7 +6,6 @@ import (
     "strconv"
     "strings"
     "groupie-tracker/models"
-    "groupie-tracker/api"
 )
 
 // PageData holds data to send to templates
@@ -16,6 +15,7 @@ type PageData struct {
     Artist   *models.ArtistDetails
     Search   string
     Results  []models.Artist
+    Events []models.Event
     Error    string
 }
 
@@ -175,5 +175,3 @@ func SearchResultsHandler(artists []models.Artist) http.HandlerFunc {
         tmpl.Execute(w, data)
     }
 }
-
-func UpCommingEvent(w http.ResponseWriter, req *http.Request) {}
