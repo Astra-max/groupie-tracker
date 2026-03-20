@@ -115,6 +115,7 @@ func ArtistHandler(artists []models.Artist, relations []models.Relation) http.Ha
 		data := PageData{
 			Title:  foundArtist.Name + " - Groupie Trackers",
 			Artist: artistDetails,
+            Artists: artists,
 		}
 
 		tmpl.Execute(w, data)

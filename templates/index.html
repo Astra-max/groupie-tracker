@@ -26,7 +26,7 @@
       <section class="side-bar">
         <p class="groupy">Groupie Tracker</p>
         <div class="dash-elem">
-          <a class="a-dash" href="/all-artists">
+          <a id="first-a" class="a-dash" href="/all-artists">
             <span class="material-symbols-outlined"> groups_2 </span>
             All artists
           </a>
@@ -79,15 +79,18 @@
             <div class="artist-info">
               {{end}}
               <div class="info-section">
-                <h2 class="members-title">Band Members</h2>
+                <p class="members-title">Band Members</p>
                 <div class="members-list">
                   {{range .Artist.Members}}
-                  <span class="member-tag">{{.}}</span>
+                  <span class="member-tag">
+                    <img class="m-icon" src="/static/icons/m-icon.svg" alt="m-icon">
+                    {{.}}
+                </span>
                   {{end}}
                 </div>
               </div>
               <div class="info-section-loc">
-                <h2>Concert Dates & Locations</h2>
+                <h2 class="date-loc">Concert Dates & Locations</h2>
                 {{if .Artist.DatesLocations}}
                 <div class="concerts-list">
                   {{range .Artist.DatesLocations}}

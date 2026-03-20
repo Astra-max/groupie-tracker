@@ -1,6 +1,7 @@
 :root {
     --minor-theme: #11dee9;
-    --minor-theme2: rgb(250, 109, 109);
+    --minor-theme2: rgb(247, 80, 80);
+    --major-theme:  rgb(236, 10, 10);
 }
 
 * {
@@ -23,6 +24,7 @@ body {
     border-radius: 0.6rem;
     height: inherit;
     overflow-x: scroll;
+    padding: 1rem 1rem;
 }
 
 h1 {
@@ -34,7 +36,7 @@ h1 {
 }
 
 .g-l {
-    color: rgb(236, 10, 10);
+    color: var(--minor-theme);
 }
 
 .nav {
@@ -76,8 +78,9 @@ h1 {
     margin-top: 4rem;
 }
 
-.active {
+#first-a {
     color: #11dee9;
+    font-weight: bold;
 }
 
 .a-dash {
@@ -88,6 +91,11 @@ h1 {
     display: flex;
     align-items: center;
     gap: 0.8rem;
+}
+
+.a-dash:hover {
+    font-weight: bold;
+    color: var(--minor-theme);
 }
 
 .display-section {
@@ -148,7 +156,7 @@ h1 {
 .artist-name {
     font-size: 24px;
     font-weight: bold;
-    color: #fff;
+    color: var(--minor-theme);
     margin-bottom: 10px;
     padding-bottom: 10px;
 }

@@ -1,183 +1,198 @@
+.dynamic-data {
+  display: flex;
+  width: 97%;
+  height: 50vh;
+  margin: 2rem 0.5rem;
+}
+
+.artist-profile {
+  display: flex;
+  gap: 2rem;
+  width: 100%;
+  background: #2b2a2a;
+  padding: 20px;
+  border-radius: 16px;
+  color: #e9ecef;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+}
+
 .artist-header {
   display: flex;
   flex-direction: column;
   gap: 1rem;
-  color: white;
-  background-color: #2b2a2a;
-  height: inherit;
-  width: 16rem;
+  width: 260px;
+  flex-shrink: 0;
 }
 
-/* Artist image */
 .artist-header img {
-  width: 15rem;
-  height: 13rem;
+  width: 100%;
+  height: 180px;
   object-fit: cover;
-  border-radius: 0.6rem;
+  border-radius: 10px;
+}
+
+.artist-header-overlay {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
 }
 
 .s-artist-name {
-  font-size: 28px;
-  margin-bottom: 10px;
+  font-size: 22px;
+  font-weight: bold;
+  color: var(--minor-theme);
 }
 
-/* Right-side info */
 .art-band-info {
   display: flex;
   flex-direction: column;
-  gap: 10px;
-  width: inherit;
+  gap: 8px;
+  background: #1b1b1b;
+  padding: 12px;
+  border-radius: 10px;
+  font-size: 14px;
 }
 
 .members-count- {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 6px;
 }
 
 .artist-info {
-  margin-top: 20px;
-  display: flex;
-  gap: 1rem;
-}
-
-/* Sections */
-.info-section {
-  background: #1b1b1b;
-  color: #e9ecef;
-  margin: 3rem 0rem;
-  height: 12rem;
-  overflow-x: scroll;
-  padding: 20px;
-  border-radius: 10px;
-}
-
-/* Grid for band info */
-.info-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 15px;
-}
-
-/* Members */
-.members-list {
   display: flex;
   height: inherit;
-  flex-direction: column;
-  overflow-x: scroll;
-  width: 75%;
-  gap: 10px;
+  gap: 1.5rem;
+  flex: 1;
 }
 
-.member-tag {
-  color: rgb(3, 3, 3);
-  padding: 6px 12px;
-  border-radius: 20px;
-}
-
-/* Concerts */
-.concerts-list {
+.info-section {
+  background: #2b2a2a;
+  padding: 15px;
+  width: 56%;
+  border-radius: 12px;
   display: flex;
   flex-direction: column;
-  flex-wrap: wrap;
-  gap: 15px;
+  height: inherit;
 }
 
-.concert-card {
-  padding: 10px;
-  color: #0a0a0a;
-  border-radius: 8px;
-  min-width: 200px;
-}
-
-
-.container {
-    width: 100%;
-    margin: 0 auto;
-}
-
-.dynamic-data {
-    display: flex;
-    align-items: center;
-    width: 100%;
-    height: 20rem;
-    margin: 9rem 0rem;
-    background-color: #2b2a2a;
-}
-
-.artist-profile {
-    display: flex;
-    align-items: center;
-    margin: 4rem 0rem;
-    color: #e9ecef;
-    border-radius: 20px;
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+.info-section h2 {
+  font-size: 16px;
+  margin-bottom: 10px;
+  color: #fff;
+  border-bottom: 1px solid #444;
+  padding-bottom: 5px;
 }
 
 .members-title {
-    color: #333;
-    margin-bottom: 15px;
-    font-size: 24px;
-    border-bottom: 2px solid #667eea;
-    padding-bottom: 5px;
-}
-.info-item {
-    background: #f8f9fa;
-    padding: 15px;
-    border-radius: 10px;
+  font-size: 1.2rem;
+  font-weight: bold;
+  padding-bottom: 1.3rem;
+  color: var(--minor-theme);
 }
 
-.info-item strong {
-    color: #667eea;
-    display: block;
-    margin-bottom: 5px;
+.members-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  overflow-y: auto;
+  padding-right: 1rem;
+}
+
+.member-tag {
+  display: flex;
+  align-items: center;
+  background: #565657;
+  color: #fff;
+  padding: 1rem 0.5rem;
+  border-radius: 0.5rem;
+  font-size: 1.1rem;
+}
+
+.member-tag:hover {
+  color: var(--minor-theme);
+  cursor: pointer;
+}
+
+.info-section-loc {
+  overflow-y: auto;
+}
+
+.date-loc {
+  padding-bottom: 1rem;
+  color: var(--minor-theme);
 }
 
 .concerts-list {
-    display: grid;
-    gap: 15px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  overflow-y: auto;
+  padding-right: 5px;
+}
+
+.concert-card {
+  background: #2b2a2a;
+  color: #e9ecef;
+  padding: 10px;
+  border-radius: 8px;
+  transition: 0.2s ease;
 }
 
 .concert-card:hover {
-    transform: translateX(10px);
-    background: #e9ecef;
-    color: #0a0a0a;
+  transform: translateX(5px);
 }
 
 .concert-location {
-    font-size: 18px;
-    font-weight: bold;
-    color: #333;
-    margin-bottom: 10px;
+  font-weight: bold;
+  font-size: 14px;
+  margin-bottom: 5px;
 }
 
 .concert-date {
-    display: inline-block;
-    color: white;
-    padding: 5px 12px;
-    border-radius: 20px;
-    font-size: 14px;
+  font-size: 12px;
+  background: #333;
+  color: white;
+  padding: 3px 8px;
+  border-radius: 10px;
+}
+
+.m-icon {
+  padding-right: 0.4rem;
+}
+
+.m-icon:hover {
+  color: var(--minor-theme);
 }
 
 .no-concerts {
-    color: #999;
-    font-style: italic;
-    padding: 20px;
-    text-align: center;
-    background: #f8f9fa;
-    border-radius: 10px;
+  font-size: 13px;
+  color: #aaa;
+  text-align: center;
+  margin-top: auto;
+}
+
+.members-list::-webkit-scrollbar,
+.concerts-list::-webkit-scrollbar {
+  width: 6px;
+}
+
+.members-list::-webkit-scrollbar-thumb,
+.concerts-list::-webkit-scrollbar-thumb {
+  background: #555;
+  border-radius: 10px;
 }
 
 @media (max-width: 768px) {
-    .artist-header {
-        height: 300px;
-    }
+  .artist-profile {
+    flex-direction: column;
+  }
 
-    .artist-header-overlay h1 {
-        font-size: 32px;
-    }
+  .artist-header {
+    width: 100%;
+  }
 
-    .artist-info {
-        padding: 20px;
-    }
+  .artist-info {
+    width: 100%;
+  }
 }
