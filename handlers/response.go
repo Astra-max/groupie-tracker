@@ -1,9 +1,9 @@
 package handlers
 
 import (
-	"io"
-	"errors"
 	"encoding/json"
+	"errors"
+	"io"
 )
 
 func DecodeJson(reader io.Reader, target interface{}) (err error) {
