@@ -6,6 +6,7 @@ import (
 	"net/http"
 	"strconv"
 	"strings"
+	"fmt"
 )
 
 // PageData holds data to send to templates
@@ -14,13 +15,15 @@ type PageData struct {
 	Artists []models.Artist
 	Artist  *models.ArtistDetails
 	Search  string
+	Dates []models.Dates
 	Results []models.Artist
-	Events  []models.Event
+	SingleArtist *models.Artist
 	Error   string
+	Mode string
 }
 
 // HomeHandler displays the main page with all artists
-func HomeHandler(artists []models.Artist) http.HandlerFunc {
+func HomeHandler(dates []models.Dates,artists []models.Artist) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 		if r.Method != http.MethodGet {
 			http.Error(w, "Method not allowed", http.StatusMethodNotAllowed)
@@ -43,8 +46,10 @@ func HomeHandler(artists []models.Artist) http.HandlerFunc {
 
 		data := PageData{
 			Title:   "Groupie Trackers - All Artists",
+			Dates: dates,
 			Artists: artists,
 			Artist:  defaultArtist,
+			Mode: "dash",
 		}
 
 		tmpl.Execute(w, data)
@@ -52,7 +57,7 @@ func HomeHandler(artists []models.Artist) http.HandlerFunc {
 }
 
 // ArtistHandler displays details for a single artist
-func ArtistHandler(artists []models.Artist, relations []models.Relation) http.HandlerFunc {
+func ArtistHandler(artists []models.Artist, relations []models.Relation, dates []models.Dates) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 		if r.Method != http.MethodGet {
 			http.Error(w, "Method not allowed", http.StatusMethodNotAllowed)
@@ -66,6 +71,7 @@ func ArtistHandler(artists []models.Artist, relations []models.Relation) http.Ha
 		}
 
 		id, err := strconv.Atoi(pathParts[2])
+		fmt.Println(r.URL.Path)
 		if err != nil {
 			http.Error(w, "Invalid artist ID", http.StatusBadRequest)
 			return
@@ -116,6 +122,8 @@ func ArtistHandler(artists []models.Artist, relations []models.Relation) http.Ha
 			Title:  foundArtist.Name + " - Groupie Trackers",
 			Artist: artistDetails,
             Artists: artists,
+			Dates: dates,
+			Mode: "home",
 		}
 
 		tmpl.Execute(w, data)

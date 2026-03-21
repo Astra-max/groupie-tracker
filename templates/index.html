@@ -1,140 +1,173 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="/static/css/index.css" type="text/css" />
-    <link rel="stylesheet" href="/static/css/artist.css" type="text/css" />
-    <link
-      rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&icon_names=groups_2"
-    />
-    <title>{{.Title}}</title>
-  </head>
-  <body>
-    <nav class="nav-bar">
-      <h1><span class="g-l">GT</span>rackers</h1>
-      <div class="nav">
-        <a href="/">Home</a>
-        <!-- <form action="POST">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="/static/css/index.css" type="text/css" />
+  <link rel="stylesheet" href="/static/css/artist.css" type="text/css" />
+  <link rel="stylesheet" href="/static/css/dynamic-ui.css" type="text/css" />
+  <link rel="stylesheet"
+    href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&icon_names=groups_2" />
+  <title>{{.Title}}</title>
+</head>
+
+<body>
+  <nav class="nav-bar">
+    <h1><span class="g-l">GT</span>rackers</h1>
+    <div class="nav">
+      <a href="/">Home</a>
+      <!-- <form action="POST">
                 <input type="text">
             </form> -->
-        <a href="/search">Search Artists</a>
-      </div>
-    </nav>
-    <div class="display-section">
-      <section class="side-bar">
-        <p class="groupy">Groupie Tracker</p>
-        <div class="dash-elem">
-          <a id="first-a" class="a-dash" href="/all-artists">
-            <span class="material-symbols-outlined"> groups_2 </span>
-            All artists
-          </a>
-          <a class="a-dash" href="/upcomming-events">
-            <span class="material-symbols-outlined">
-              <img src="/static/icons/cal.svg" alt="cal icon" loading="lazy" />
-            </span>
-            Previous Events
-          </a>
-          <a class="a-dash" href="/all-events">
-            <span class="material-symbols-outlined">
-              <img src="/static/icons/cal.svg" alt="cal icon" loading="lazy" />
-            </span>
-            All Events
-          </a>
-          <a href="/locations" class="a-dash">
-            <span>
-              <img
-                src="/static/icons/location.svg"
-                alt="location icon"
-                loading="lazy"
-              />
-            </span>
-            Event locations
-          </a>
-        </div>
-      </section>
-      <section class="container-">
-        <div class="dynamic-data">
-          <div class="artist-profile">
-            {{if .Artist}}
-            <div class="artist-header">
-              <img src="{{.Artist.Image}}" alt="{{.Artist.Name}}" />
-              <div class="artist-header-overlay">
-                <p class="s-artist-name">{{.Artist.Name}}</p>
-                <p>Formed: {{.Artist.CreationDate}}</p>
-              </div>
-              <div class="art-band-info">
-                <p>First Album: {{.Artist.FirstAlbum}}</p>
-                <p>
-                  <span class="material-symbols-outlined"> groups_2 </span>
-                  {{len .Artist.Members}}
-                </p>
-                <p>
-                    Active since: {{.Artist.CreationDate}}
-                </p>
-              </div>
-            </div>
+      <a href="/search">Search Artists</a>
+    </div>
+  </nav>
 
-            <div class="artist-info">
-              {{end}}
-              <div class="info-section">
-                <p class="members-title">Band Members</p>
-                <div class="members-list">
-                  {{range .Artist.Members}}
-                  <span class="member-tag">
-                    <img class="m-icon" src="/static/icons/m-icon.svg" alt="m-icon">
-                    {{.}}
-                </span>
-                  {{end}}
-                </div>
-              </div>
-              <div class="info-section-loc">
-                <h2 class="date-loc">Concert Dates & Locations</h2>
-                {{if .Artist.DatesLocations}}
-                <div class="concerts-list">
-                  {{range .Artist.DatesLocations}}
-                  <div class="concert-card">
-                    <div class="concert-location"><img src="/static/icons/location.svg" alt={{.Location}} > {{.Location}}</div>
-                    <span class="concert-date">📅 {{.Date}}</span>
-                  </div>
-                  {{end}}
-                </div>
-                {{else}}
-                <div class="no-concerts">No upcoming concerts scheduled</div>
-                {{end}}
-              </div>
+  <div class="display-section">
+    <section class="side-bar">
+      <p class="groupy">Groupie Tracker</p>
+      <div class="dash-elem">
+        <a id="first-a" class="a-dash" href="/all-artists">
+          <span class="material-symbols-outlined"> groups_2 </span>
+          All artists
+        </a>
+        <a class="a-dash" href="/upcomming-events">
+          <span class="material-symbols-outlined">
+            <img src="/static/icons/cal.svg" alt="cal icon" loading="lazy" />
+          </span>
+          Previous Events
+        </a>
+        <a class="a-dash" href="/all-events">
+          <span class="material-symbols-outlined">
+            <img src="/static/icons/cal.svg" alt="cal icon" loading="lazy" />
+          </span>
+          All Events
+        </a>
+        <a href="/locations" class="a-dash">
+          <span>
+            <img src="/static/icons/location.svg" alt="location icon" loading="lazy" />
+          </span>
+          Event locations
+        </a>
+      </div>
+    </section>
+    <section class="container-">
+      <section>
+        <form class="event-by-date" method="GET" action="/concerts">
+          {{if .Dates}}
+          <select class="select-date" name="date" id="">
+            {{range .Dates}} {{$artistId := .ID}} {{range .Dates}}
+            <option value="{{$artistId}}|{{.}}">{{.}}</option>
+            {{end}} {{end}}
+          </select>
+          {{end}}
+          <button class="event-btn" type="submit" name="view" value="date">
+            Event By Date
+          </button>
+        </form>
+      </section>
+
+      <div class="dynamic-data">
+        {{if eq .Mode "home"}}
+        <div class="artist-profile">
+          {{if .Artist}}
+          <div class="artist-header">
+            <img src="{{.Artist.Image}}" alt="{{.Artist.Name}}" />
+            <div class="artist-header-overlay">
+              <p class="s-artist-name">{{.Artist.Name}}</p>
+              <p>Formed: {{.Artist.CreationDate}}</p>
+            </div>
+            <div class="art-band-info">
+              <p>First Album: {{.Artist.FirstAlbum}}</p>
+              <p>
+                <span class="material-symbols-outlined"> groups_2 </span>
+                {{len .Artist.Members}}
+              </p>
+              <p>Active since: {{.Artist.CreationDate}}</p>
             </div>
           </div>
 
-        </div>
-        <div class="stats">
-          <strong>Top Performing <span class="g-l">Artists</span></strong>
-        </div>
-        <div class="artists-grid">
-          {{range .Artists}}
-          <a href="/artist/{{.ID}}" class="artist-card">
-            <div class="artist-img-cont">
-              <img src="{{.Image}}" alt="{{.Name}}" class="artist-image" />
-            </div>
-            <div class="artist-info-">
-              <div class="artist-name">{{.Name}}</div>
-              <div class="artist-details">
-                <p>Band started on {{.CreationDate}}</p>
-                <p>First album {{.FirstAlbum}}</p>
-              </div>
-              <div class="view-more">
-                <p class="art-members">
-                  <span class="material-symbols-outlined"> groups_2 </span>
-                  <span class="m-count">{{len .Members}}</span>
-                </p>
-                <span class="member-count">View Concerts →</span>
+          <div class="artist-info">
+            {{end}}
+            <div class="info-section">
+              <p class="members-title">Band Members</p>
+              <div class="members-list">
+                {{range .Artist.Members}}
+                <span class="member-tag">
+                  <img class="m-icon" src="/static/icons/m-icon.svg" alt="m-icon" />
+                  {{.}}
+                </span>
+                {{end}}
               </div>
             </div>
-          </a>
-          {{end}}
+            <div class="info-section-loc">
+              <h2 class="date-loc">Concert Dates & Locations</h2>
+              {{if .Artist.DatesLocations}}
+              <div class="concerts-list">
+                {{range .Artist.DatesLocations}}
+                <div class="concert-card">
+                  <div class="concert-location">
+                    <img src="/static/icons/location.svg" alt="{{.Location}}" />
+                    {{.Location}}
+                  </div>
+                  <span class="concert-date">📅 {{.Date}}</span>
+                </div>
+                {{end}}
+              </div>
+              {{else}}
+              <div class="no-concerts">No upcoming concerts scheduled</div>
+              {{end}}
+            </div>
+          </div>
         </div>
-      </section>
-    </div>
-  </body>
+        {{end}} {{if eq .Mode "concert"}}
+        <div>{{.Artist.Name}}</div>
+        {{end}} {{if eq .Mode "dash"}}
+        <div class="d-cards">
+          <div class="num-artist">
+            <p class="first-desc">Top performing artists</p>
+            <p class="first-num">{{len .Artists}}</p>
+          </div>
+          <div class="prev-events">
+            <p class="num-desc">Previous Events</p>
+            <p class="number">12</p>
+          </div>
+          <div class="art-most-events">
+            <p class="num-desc">Artist with more Events</p>
+            <p class="number">10</p>
+          </div>
+        </div>
+        {{end}}
+      </div>
+      <div class="stats">
+        <strong>Top Performing <span class="g-l">Artists</span></strong>
+      </div>
+      <div class="artists-grid">
+        {{range .Artists}}
+        <a href="/artist/{{.ID}}" class="artist-card">
+          <div class="artist-img-cont">
+            <img src="{{.Image}}" alt="{{.Name}}" class="artist-image" />
+          </div>
+          <div class="artist-info-">
+            <div class="artist-name">{{.Name}}</div>
+            <div class="artist-details">
+              <p>Band started on {{.CreationDate}}</p>
+              <p>First album {{.FirstAlbum}}</p>
+            </div>
+            <div class="view-more">
+              <p class="art-members">
+                <span class="material-symbols-outlined"> groups_2 </span>
+                <span class="m-count">{{len .Members}}</span>
+              </p>
+              <span class="member-count">View Concerts →</span>
+            </div>
+          </div>
+        </a>
+        {{end}}
+      </div>
+    </section>
+  </div>
+</body>
+
 </html>

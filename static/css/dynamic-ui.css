@@ -1,0 +1,86 @@
+.event-btn {
+    border: 0rem;
+    border-radius: 0rem 0.5rem 0.5rem 0rem;
+    background-color: var(--minor-theme);
+    width: 8rem;
+    height: 2.5rem;
+    font-size: 1rem;
+    cursor: pointer;
+}
+
+.event-by-date {
+    display: flex;
+    align-items: center;
+    justify-content: right;
+    margin-top: 1.5rem;
+    margin-bottom: 3rem;
+    margin-right: 2rem;
+}
+
+.select-date {
+    width: 19rem;
+    height: 2.5rem;
+    border-radius: 0.3rem 0rem 0rem 0.3rem;
+    border: 0.1rem solid silver;
+    padding-left: 1rem;
+    background-color: rgb(77, 75, 75);
+    color: #e2e2e2;
+    font-weight: 900;
+    font-size: 1.1rem;
+}
+
+.d-cards {
+    display: flex;
+    align-items: start;
+    gap: 2.5rem;
+    justify-content: space-between;
+}
+
+.num-artist {
+    padding: 1rem;
+    height: 12rem;
+    width: 24rem;
+    border-radius: 0.5rem;
+    background-color: var(--minor-theme);
+}
+
+.art-most-events {
+    padding: 1rem;
+    height: 12rem;
+    width: 24rem;
+    border-radius: 0.5rem;
+    background-color: rgb(8, 8, 8);
+}
+
+.prev-events {
+    padding: 1rem;
+    height: 12rem;
+    width: 24rem;
+    border-radius: 0.5rem;
+    background-color: rgb(12, 12, 12);
+}
+
+.first-desc {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #020202;
+}
+
+.first-num {
+  color: #020202;
+  font-size: 1.6rem;
+  font-weight: bold;
+}
+
+
+.num-desc {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #e2e2e2;
+}
+
+.number {
+    font-weight: bold;
+    font-size: 1.6rem;
+    color: var(--minor-theme);
+}
