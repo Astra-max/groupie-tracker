@@ -3,9 +3,10 @@ package models
 // Events - get events with their time, date and location
 
 type Event struct {
-	Artist   string
-	Date     string
-	Location string
+	Name   string `json:"Name"`
+	Date     string `json:"Date"`
+	Location string `json:"Location"`
+	Image string `json:"Image"`
 }
 
 // Artist represents a band or artist's basic information

@@ -18,6 +18,7 @@ type PageData struct {
 	Dates []models.Dates
 	Results []models.Artist
 	SingleArtist *models.Artist
+	Concert *models.Event
 	Error   string
 	Mode string
 }

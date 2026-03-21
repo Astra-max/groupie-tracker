@@ -7,6 +7,7 @@
   <link rel="stylesheet" href="/static/css/index.css" type="text/css" />
   <link rel="stylesheet" href="/static/css/artist.css" type="text/css" />
   <link rel="stylesheet" href="/static/css/dynamic-ui.css" type="text/css" />
+  <link rel="stylesheet" href="/static/css/footer.css" type="text/css" />
   <link rel="stylesheet"
     href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&icon_names=groups_2" />
   <title>{{.Title}}</title>
@@ -122,7 +123,13 @@
           </div>
         </div>
         {{end}} {{if eq .Mode "concert"}}
-        <div>{{.Artist.Name}}</div>
+        <div>
+          <div>
+            <img src="{{.Artist.Image}}" alt="{{.Artist.Name}}">
+            <p>{{.Concert.Name}}</p>
+          </div>
+          <p>Event status: Event Ended on</p>
+        </div>
         {{end}} {{if eq .Mode "dash"}}
         <div class="d-cards">
           <div class="num-artist">
@@ -134,11 +141,17 @@
             <p class="number">12</p>
           </div>
           <div class="art-most-events">
-            <p class="num-desc">Artist with more Events</p>
+            <p class="num-desc">Artist with most Events</p>
             <p class="number">10</p>
           </div>
         </div>
         {{end}}
+      </div>
+      <div class="expired-concerts">
+        <div class="d-expired">
+          <p class="prev-expired"><span class="g-l">Previously</span>&nbsp;Performed Concerts</p>
+          <a class="prev-more" href="/concerts">see more</a>
+        </div>
       </div>
       <div class="stats">
         <strong>Top Performing <span class="g-l">Artists</span></strong>
@@ -166,6 +179,14 @@
         </a>
         {{end}}
       </div>
+      <section class="main-cont--">
+      <div>
+        &copy; Waore Maxwel & Kevin
+      </div>
+      <div>
+        zone01 kisumu
+      </div>
+    </section>
     </section>
   </div>
 </body>

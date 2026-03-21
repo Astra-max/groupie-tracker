@@ -17,6 +17,7 @@ func main() {
 	http.Handle("/static/", http.StripPrefix("/static/", fs))
 
 	client := api.NewClient()
+
 	artists, locations, dates, relations, err := client.GetAllData()
 
 	if err != nil {
@@ -37,7 +38,7 @@ func main() {
 	fmt.Println("\n🚀 Setting up routes...")
 	http.HandleFunc("/", handlers.HomeHandler(dates,artists))
 	http.HandleFunc("/artist/", handlers.ArtistHandler(artists, relations, dates))
-	http.HandleFunc("/concerts/", handlers.ConcertsByDate(dates, artists))
+	http.HandleFunc("/concerts/", handlers.ConcertsByDate(dates, artists, relations))
 	http.HandleFunc("/search", handlers.SearchPageHandler(artists))
 	http.HandleFunc("/search/results", handlers.SearchResultsHandler(artists))
 
