@@ -59,7 +59,7 @@
           {{if .Dates}}
           <select class="select-date" name="date" id="">
             {{range .Dates}} {{$artistId := .ID}} {{range .Dates}}
-            <option value="{{$artistId}}|{{.}}">{{.}}</option>
+            <option value="{{.}}">{{.}}</option>
             {{end}} {{end}}
           </select>
           {{end}}
@@ -122,13 +122,23 @@
             </div>
           </div>
         </div>
-        {{end}} {{if eq .Mode "concert"}}
-        <div>
-          <div>
-            <img src="{{.Artist.Image}}" alt="{{.Artist.Name}}">
-            <p>{{.Concert.Name}}</p>
+        {{end}}{{if eq .Mode "concerts-list"}}
+        <div class="f-conc-card-div">
+          {{range .AllConcerts}}
+          <div class="filter-concert-card">
+            <img class="filter-by-img" src="{{.Image}}" alt="{{.Name}}">
+            <div>
+              <p>{{.Name}}</h3>
+              <p>Date: {{.Date}}</p>
+              <p>
+                Locations:
+                {{range .Location}}
+                {{.}},
+                {{end}}
+              </p>
+            </div>
           </div>
-          <p>Event status: Event Ended on</p>
+          {{end}}
         </div>
         {{end}} {{if eq .Mode "dash"}}
         <div class="d-cards">
@@ -180,13 +190,13 @@
         {{end}}
       </div>
       <section class="main-cont--">
-      <div>
-        &copy; Waore Maxwel & Kevin
-      </div>
-      <div>
-        zone01 kisumu
-      </div>
-    </section>
+        <div>
+          &copy; Waore Maxwel & Kevin
+        </div>
+        <div>
+          zone01 kisumu
+        </div>
+      </section>
     </section>
   </div>
 </body>

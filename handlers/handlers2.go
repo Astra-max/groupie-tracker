@@ -1,13 +1,12 @@
 package handlers
 
 import (
+	"fmt"
 	"groupie-tracker/models"
 	"html/template"
 	"net/http"
 	"strings"
-	"strconv"
 )
-
 
 func ConcertsByDate(
 	dates []models.Dates,
@@ -15,8 +14,13 @@ func ConcertsByDate(
 	relations []models.Relation,
 ) http.HandlerFunc {
 
-	return func(w http.ResponseWriter, r *http.Request) {
+	// Preprocess relations into a map for O(1) lookup
+	relMap := make(map[int]models.Relation, len(relations))
+	for _, rel := range relations {
+		relMap[rel.ID] = rel
+	}
 
+	return func(w http.ResponseWriter, r *http.Request) {
 		if r.Method != http.MethodGet {
 			http.Error(w, "Method not allowed", http.StatusMethodNotAllowed)
 			return
@@ -28,82 +32,52 @@ func ConcertsByDate(
 			return
 		}
 
-		raw := r.URL.Query().Get("date")
-		parts := strings.Split(raw, "|")
-
-		if len(parts) < 2 {
-			http.Error(w, "Missing artistId or date", http.StatusBadRequest)
+		rawDate := r.URL.Query().Get("date")
+		if rawDate == "" {
+			http.Error(w, "Missing date parameter", http.StatusBadRequest)
 			return
 		}
+		cleanDate := strings.TrimPrefix(rawDate, "*")
 
-		userId, err := strconv.Atoi(parts[0])
-		if err != nil {
-			http.Error(w, "Invalid artistId", http.StatusBadRequest)
-			return
-		}
+		var concerts []models.Event
 
-		selectedDate := parts[1]
-
-		var singleArtist models.Artist
-		found := false
-
-		for _, art := range artists {
-			if art.ID == userId {
-				singleArtist = art
-				found = true
-				break
+		// Loop over artists once, lookup their relations
+		for _, artist := range artists {
+			if rel, ok := relMap[artist.ID]; ok {
+				var matchingLocations []string
+				for loc, dateList := range rel.DatesLocations {
+					for _, d := range dateList {
+						if strings.TrimPrefix(d, "*") == cleanDate {
+							matchingLocations = append(matchingLocations, loc)
+						}
+					}
+				}
+				if len(matchingLocations) > 0 {
+					concerts = append(concerts, models.Event{
+						Name:     artist.Name,
+						Image:    artist.Image,
+						Date:     rawDate,
+						Location: matchingLocations,
+					})
+				}
 			}
 		}
 
-		if !found {
-			http.Error(w, "Artist not found", http.StatusNotFound)
+		if len(concerts) == 0 {
+			http.Error(w, "No concerts found for this date", http.StatusNotFound)
 			return
-		}
-
-		var artistRelation models.Relation
-
-		for _, rel := range relations {
-			if rel.ID == userId {
-				artistRelation = rel
-				break
-			}
-		}
-
-		var locations []string
-
-		for date, locs := range artistRelation.DatesLocations {
-
-			cleanDate := strings.TrimPrefix(date, "*")
-
-			if cleanDate == selectedDate {
-				locations = locs
-				break
-			}
-		}
-
-		if len(locations) == 0 {
-			http.Error(w, "No locations found", http.StatusNotFound)
-			return
-		}
-
-		concert := &models.Event{
-			Name:     singleArtist.Name,
-			Image:    singleArtist.Image,
-			Date:     selectedDate,
-			Location: strings.Join(locations, ", "),
 		}
 
 		data := PageData{
-			Title:     "Groupie Trackers - Concerts",
-			Dates:     dates,
-			Artists:   artists,
-			Concert:   concert,
-			Mode:      "concert",
+			Title:       fmt.Sprintf("Concerts on %s", rawDate),
+			Dates:       dates,
+			Artists:     artists,
+			Concert:     &concerts[0],
+			Mode:        "concerts-list",
+			AllConcerts: concerts,
 		}
 
-
-		err = tmpl.Execute(w, data)
-		if err != nil {
+		if err := tmpl.Execute(w, data); err != nil {
 			http.Error(w, "Render error", http.StatusInternalServerError)
 			return
 		}

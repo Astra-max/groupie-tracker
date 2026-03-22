@@ -84,3 +84,29 @@
     font-size: 1.6rem;
     color: var(--minor-theme);
 }
+
+.f-conc-card-div {
+    display: grid;
+    flex-wrap: wrap;
+    gap: 2rem;
+    width: 100%;
+}
+
+.filter-concert-card {
+    height: 2.7rem;
+    display: flex;
+    align-items: center;
+    height: 4rem;
+    gap: 1rem;
+    background-color: #050505;
+    color: #e2e2e2;
+    width: 50%;
+    border-radius: 0.5rem;
+    padding: 1rem;
+}
+
+.filter-by-img {
+    border-radius: 50%;
+    height: 3rem;
+    width: 3rem;
+}

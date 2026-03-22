@@ -36,7 +36,7 @@ func main() {
 
 	// Set up routes
 	fmt.Println("\n🚀 Setting up routes...")
-	http.HandleFunc("/", handlers.HomeHandler(dates,artists))
+	http.HandleFunc("/", handlers.HomeHandler(dates, artists))
 	http.HandleFunc("/artist/", handlers.ArtistHandler(artists, relations, dates))
 	http.HandleFunc("/concerts/", handlers.ConcertsByDate(dates, artists, relations))
 	http.HandleFunc("/search", handlers.SearchPageHandler(artists))

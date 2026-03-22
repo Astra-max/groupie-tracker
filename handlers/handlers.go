@@ -1,30 +1,31 @@
 package handlers
 
 import (
+	"fmt"
 	"groupie-tracker/models"
 	"html/template"
 	"net/http"
 	"strconv"
 	"strings"
-	"fmt"
 )
 
 // PageData holds data to send to templates
 type PageData struct {
-	Title   string
-	Artists []models.Artist
-	Artist  *models.ArtistDetails
-	Search  string
-	Dates []models.Dates
-	Results []models.Artist
+	Title        string
+	Artists      []models.Artist
+	Artist       *models.ArtistDetails
+	Search       string
+	Dates        []models.Dates
+	Results      []models.Artist
 	SingleArtist *models.Artist
-	Concert *models.Event
-	Error   string
-	Mode string
+	Concert      *models.Event
+	Error        string
+	Mode         string
+	AllConcerts []models.Event
 }
 
 // HomeHandler displays the main page with all artists
-func HomeHandler(dates []models.Dates,artists []models.Artist) http.HandlerFunc {
+func HomeHandler(dates []models.Dates, artists []models.Artist) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 		if r.Method != http.MethodGet {
 			http.Error(w, "Method not allowed", http.StatusMethodNotAllowed)
@@ -47,10 +48,10 @@ func HomeHandler(dates []models.Dates,artists []models.Artist) http.HandlerFunc 
 
 		data := PageData{
 			Title:   "Groupie Trackers - All Artists",
-			Dates: dates,
+			Dates:   dates,
 			Artists: artists,
 			Artist:  defaultArtist,
-			Mode: "dash",
+			Mode:    "dash",
 		}
 
 		tmpl.Execute(w, data)
@@ -120,11 +121,11 @@ func ArtistHandler(artists []models.Artist, relations []models.Relation, dates [
 		}
 
 		data := PageData{
-			Title:  foundArtist.Name + " - Groupie Trackers",
-			Artist: artistDetails,
-            Artists: artists,
-			Dates: dates,
-			Mode: "home",
+			Title:   foundArtist.Name + " - Groupie Trackers",
+			Artist:  artistDetails,
+			Artists: artists,
+			Dates:   dates,
+			Mode:    "home",
 		}
 
 		tmpl.Execute(w, data)
