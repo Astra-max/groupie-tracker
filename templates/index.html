@@ -112,7 +112,7 @@
                     <img src="/static/icons/location.svg" alt="{{.Location}}" />
                     {{.Location}}
                   </div>
-                  <span class="concert-date">📅 {{.Date}}</span>
+                  <a class="concert-date" href="/concerts/?date={{.Date}}&view=date">📅 {{.Date}}</a>
                 </div>
                 {{end}}
               </div>
@@ -123,12 +123,14 @@
           </div>
         </div>
         {{end}}{{if eq .Mode "concerts-list"}}
-        <div class="f-conc-card-div">
-          {{range .AllConcerts}}
+        <div class="f-conc-card-cont">
+          <p class="found-results">Found {{len .AllConcerts}} results</p>
+          <div class="f-conc-card-div">
+            {{range .AllConcerts}}
           <div class="filter-concert-card">
             <img class="filter-by-img" src="{{.Image}}" alt="{{.Name}}">
             <div>
-              <p>{{.Name}}</h3>
+              <p class="artist-name-l">{{.Name}}</h3>
               <p>Date: {{.Date}}</p>
               <p>
                 Locations:
@@ -137,8 +139,10 @@
                 {{end}}
               </p>
             </div>
+            <p class="event-status">Event status: ended</p>
           </div>
           {{end}}
+          </div>
         </div>
         {{end}} {{if eq .Mode "dash"}}
         <div class="d-cards">
