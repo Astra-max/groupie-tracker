@@ -64,15 +64,24 @@ func ConcertsByDate(
 		}
 
 		if len(concerts) == 0 {
-			http.Error(w, "No concerts found for this date", http.StatusNotFound)
+			data := PageData{
+				Title: fmt.Sprintf("Concerts on %s", rawDate),
+				Dates: dates,
+				Artists: artists,
+				Mode: "concerts-list",
+				AllConcerts: concerts,
+			}
+			if err := tmpl.Execute(w, data); err != nil {
+			http.Error(w, "Render error", http.StatusInternalServerError)
 			return
+		}
+		return
 		}
 
 		data := PageData{
 			Title:       fmt.Sprintf("Concerts on %s", rawDate),
 			Dates:       dates,
 			Artists:     artists,
-			Concert:     &concerts[0],
 			Mode:        "concerts-list",
 			AllConcerts: concerts,
 		}
