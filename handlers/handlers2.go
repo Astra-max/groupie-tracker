@@ -65,17 +65,17 @@ func ConcertsByDate(
 
 		if len(concerts) == 0 {
 			data := PageData{
-				Title: fmt.Sprintf("Concerts on %s", rawDate),
-				Dates: dates,
-				Artists: artists,
-				Mode: "concerts-list",
+				Title:       fmt.Sprintf("Concerts on %s", rawDate),
+				Dates:       dates,
+				Artists:     artists,
+				Mode:        "concerts-list",
 				AllConcerts: concerts,
 			}
 			if err := tmpl.Execute(w, data); err != nil {
-			http.Error(w, "Render error", http.StatusInternalServerError)
+				http.Error(w, "Render error", http.StatusInternalServerError)
+				return
+			}
 			return
-		}
-		return
 		}
 
 		data := PageData{
@@ -90,6 +90,17 @@ func ConcertsByDate(
 			http.Error(w, "Render error", http.StatusInternalServerError)
 			return
 		}
+	}
+}
+
+func ServerError(err error) func(http.ResponseWriter, *http.Request) {
+	return func(w http.ResponseWriter, req *http.Request) {
+		tmpl, err := template.ParseFiles("templates/server-error.html")
+	if err != nil {
+		http.Error(w, "Server Error", http.StatusInternalServerError)
+		return
+	}
+	tmpl.Execute(w, err)
 	}
 }
 
