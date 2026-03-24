@@ -1,0 +1,32 @@
+.main-cont-- {
+    height: 4rem;
+    border-radius: 0.5rem;
+    width: 97.5%;
+    margin: 1rem 0.7rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgb(48, 47, 47);
+    color: rgb(203, 204, 204);
+    gap: 5rem;
+    bottom: 0%;
+}
+
+.d-expired {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: 2rem 1rem;
+}
+
+.prev-more {
+    text-decoration: none;
+    color: var(--minor-theme);
+    padding-right: 1rem;
+}
+
+.prev-expired {
+    font-size: 1.4rem;
+    font-weight: bold;
+    color: #fff;
+}

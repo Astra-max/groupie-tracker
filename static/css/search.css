@@ -1,0 +1,104 @@
+.container- {
+    max-width: 1200px;
+    margin: 0 auto;
+    background: white;
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+}
+
+h1 {
+    color: #333;
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.nav {
+    text-align: right;
+    margin-bottom: 20px;
+}
+
+.nav a {
+    color: #667eea;
+    text-decoration: none;
+    padding: 5px 10px;
+}
+
+.search-form {
+    text-align: center;
+    margin-bottom: 30px;
+    padding: 20px;
+    background: #f8f9fa;
+    border-radius: 10px;
+}
+
+.search-form input {
+    padding: 10px;
+    width: 300px;
+    font-size: 16px;
+    border: 2px solid #ddd;
+    border-radius: 5px;
+    margin-right: 10px;
+}
+
+.search-form button {
+    padding: 10px 20px;
+    font-size: 16px;
+    background: #667eea;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.results {
+    margin-top: 30px;
+}
+
+.result-count {
+    text-align: center;
+    color: #666;
+    margin-bottom: 20px;
+}
+
+.artists-grid- {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 20px;
+}
+
+.artist-card- {
+    background: white;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    overflow: hidden;
+    text-decoration: none;
+    color: inherit;
+    transition: transform 0.2s;
+}
+
+.artist-card-:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+.artist-card- img {
+    width: 100%;
+    height: 150px;
+    object-fit: cover;
+}
+
+.artist-info- {
+    padding: 15px;
+}
+
+.artist-name- {
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.no-results {
+    text-align: center;
+    color: #999;
+    padding: 40px;
+}

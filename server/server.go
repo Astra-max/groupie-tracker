@@ -1,6 +1,5 @@
 package server
 
-
 func NewServer() *ServerConfig {
 	return &ServerConfig{}
 }

@@ -1,8 +1,8 @@
 package util
 
 const (
-	ARTISTS = ""
-	DATES = ""
+	ARTISTS   = ""
+	DATES     = ""
 	LOCATIONS = ""
 	RELATIONS = ""
 )
