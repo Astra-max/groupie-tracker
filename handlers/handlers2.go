@@ -2,10 +2,11 @@ package handlers
 
 import (
 	"fmt"
-	"groupie-tracker/models"
 	"html/template"
 	"net/http"
 	"strings"
+
+	"groupie-tracker/models"
 )
 
 func ConcertsByDate(
@@ -13,7 +14,6 @@ func ConcertsByDate(
 	artists []models.Artist,
 	relations []models.Relation,
 ) http.HandlerFunc {
-
 	// Preprocess relations into a map for O(1) lookup
 	relMap := make(map[int]models.Relation, len(relations))
 	for _, rel := range relations {
@@ -96,14 +96,41 @@ func ConcertsByDate(
 func ServerError(err error) func(http.ResponseWriter, *http.Request) {
 	return func(w http.ResponseWriter, req *http.Request) {
 		tmpl, err := template.ParseFiles("templates/server-error.html")
-	if err != nil {
-		http.Error(w, "Server Error", http.StatusInternalServerError)
-		return
-	}
-	tmpl.Execute(w, err)
+		if err != nil {
+			http.Error(w, "Server Error", http.StatusInternalServerError)
+			return
+		}
+		tmpl.Execute(w, err)
 	}
 }
 
-func PreviousEvents(w http.ResponseWriter, req *http.Request) {}
+func AllLocations(
+	locations []models.Locations,
+	artists []models.Artist,
+	relations []models.Relation,
+	dates []models.Dates,
+) http.HandlerFunc {
+	return func(w http.ResponseWriter, r *http.Request) {
+		if r.Method != http.MethodGet {
+			http.Error(w, "Method not allowed", http.StatusMethodNotAllowed)
+			return
+		}
 
-func AllEvents(w http.ResponseWriter, req *http.Request) {}
+		tmpl, err := template.ParseFiles("templates/index.html")
+		if err != nil {
+			http.Error(w, "Template error", http.StatusInternalServerError)
+			return
+		}
+
+		data := PageData{
+			Title:     "All Concert Locations - Groupie Trackers",
+			Locations: locations,
+			Dates:     dates,
+		}
+
+		if err := tmpl.Execute(w, data); err != nil {
+			http.Error(w, "Render error", http.StatusInternalServerError)
+			return
+		}
+	}
+}

@@ -2,11 +2,12 @@ package main
 
 import (
 	"fmt"
+	"log"
+	"net/http"
+
 	"groupie-tracker/api"
 	"groupie-tracker/handlers"
 	"groupie-tracker/models"
-	"log"
-	"net/http"
 )
 
 func main() {
@@ -18,7 +19,6 @@ func main() {
 	client := api.NewClient()
 
 	artists, locations, dates, relations, err := client.GetAllData()
-
 	if err != nil {
 		fmt.Println("Could not connect to API:", err)
 		fmt.Println("Using mock data instead...")
@@ -38,6 +38,7 @@ func main() {
 	http.HandleFunc("/concerts/", handlers.ConcertsByDate(dates, artists, relations))
 	http.HandleFunc("/search", handlers.SearchPageHandler(artists))
 	http.HandleFunc("/search/results", handlers.SearchResultsHandler(artists))
+	http.HandleFunc("/all-locations", handlers.AllLocations(locations, artists, relations, dates))
 
 	port := ":8000"
 	fmt.Printf("\nServer running on http://localhost%s\n", port)
