@@ -22,6 +22,8 @@ type PageData struct {
 	Error        string
 	Mode         string
 	AllConcerts []models.Event
+	Locations []models.Locations
+
 }
 
 // HomeHandler displays the main page with all artists
