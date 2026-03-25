@@ -19,6 +19,7 @@ func main() {
 	client := api.NewClient()
 
 	artists, locations, dates, relations, err := client.GetAllData()
+
 	if err != nil {
 		fmt.Println("Could not connect to API:", err)
 		fmt.Println("Using mock data instead...")
@@ -33,7 +34,7 @@ func main() {
 	fmt.Printf("Loaded %d date sets\n", len(dates))
 	fmt.Printf("Loaded %d relation sets\n", len(relations))
 
-	http.HandleFunc("/", handlers.HomeHandler(dates, artists))
+	http.HandleFunc("/", handlers.HomeHandler(dates, artists, locations))
 	http.HandleFunc("/artist/", handlers.ArtistHandler(artists, relations, dates))
 	http.HandleFunc("/concerts/", handlers.ConcertsByDate(dates, artists, relations))
 	http.HandleFunc("/search", handlers.SearchPageHandler(artists))

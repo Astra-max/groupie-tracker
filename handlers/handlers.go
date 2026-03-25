@@ -27,7 +27,7 @@ type PageData struct {
 }
 
 // HomeHandler displays the main page with all artists
-func HomeHandler(dates []models.Dates, artists []models.Artist) http.HandlerFunc {
+func HomeHandler(dates []models.Dates, artists []models.Artist, locations []models.Locations) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 		if r.Method != http.MethodGet {
 			http.Error(w, "Method not allowed", http.StatusMethodNotAllowed)
@@ -53,6 +53,7 @@ func HomeHandler(dates []models.Dates, artists []models.Artist) http.HandlerFunc
 			Dates:   dates,
 			Artists: artists,
 			Artist:  defaultArtist,
+			Locations: locations,
 			Mode:    "dash",
 		}
 

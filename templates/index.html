@@ -163,6 +163,16 @@
         </div>
         {{end}}
       </div>
+      <p class="loc-title">Event Locations</p>
+      <div class="display-locations">
+        {{if .Locations}}
+        {{range .Locations}}
+            {{range .Locations}}
+               <p class="locations">{{.}}</p>
+            {{end}}
+         {{end}}
+         {{end}}
+      </div>
       <div class="expired-concerts">
         <div class="d-expired">
           <p class="prev-expired"><span class="g-l">Previously</span>&nbsp;Performed Concerts</p>
