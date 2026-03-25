@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/static/css/search.css" type="text/css">
+    <title>{{.Title}}</title>
+</head>
+<body>
+    <div class="container">
+        <div class="nav">
+            <a href="/">Home</a> | <a href="/search">Search</a>
+        </div>
+        
+        <h1>🔍 Search Artists</h1>
+        
+        <div class="search-form">
+            <form action="/search/results" method="POST">
+                <input type="text" name="search" placeholder="Enter artist name or member name..." value="{{.Search}}" minlength="2" required>
+                <button type="submit">Search</button>
+            </form>
+        </div>
+        {{if .Search}}
+        <div class="results">
+            <div class="result-count">
+                Found {{len .Results}} result(s) for "{{.Search}}"
+            </div>
+            
+            {{if .Results}}
+            <div class="artists-grid">
+                {{range .Results}}
+                <a href="/artist/{{.ID}}" class="artist-card">
+                    <img src="{{.Image}}" alt="{{.Name}}">
+                    <div class="artist-info">
+                        <div class="artist-name">{{.Name}}</div>
+                        <div>Formed: {{.CreationDate}}</div>
+                        <div>Members: {{len .Members}}</div>
+                    </div>
+                </a>
+                {{end}}
+            </div>
+            {{else}}
+            <div class="no-results">
+                No artists found matching your search.
+            </div>
+            {{end}}
+        </div>
+        {{end}}
+    </div>
+</body>
+</html>
