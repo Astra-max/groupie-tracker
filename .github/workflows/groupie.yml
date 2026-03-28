@@ -1,7 +1,7 @@
 name: Build and deploy groupie tracker
 
 on:
-  pull-request:
+  pull_request:
     branches:
     - front-end/maodongo
   push:
