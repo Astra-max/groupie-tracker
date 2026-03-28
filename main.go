@@ -39,8 +39,7 @@ func main() {
 	http.HandleFunc("/concerts/", handlers.ConcertsByDate(dates, artists, relations))
 	http.HandleFunc("/search", handlers.SearchPageHandler(artists))
 	http.HandleFunc("/search/results", handlers.SearchResultsHandler(artists))
-	http.HandleFunc("/all-locations", handlers.AllLocations(locations, artists, relations, dates))
-
+	
 	port := ":8000"
 	fmt.Printf("\nServer running on http://localhost%s\n", port)
 	log.Fatal(http.ListenAndServe(port, nil))

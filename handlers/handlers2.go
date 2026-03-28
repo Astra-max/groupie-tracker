@@ -103,34 +103,3 @@ func ServerError(err error) func(http.ResponseWriter, *http.Request) {
 		tmpl.Execute(w, err)
 	}
 }
-
-func AllLocations(
-	locations []models.Locations,
-	artists []models.Artist,
-	relations []models.Relation,
-	dates []models.Dates,
-) http.HandlerFunc {
-	return func(w http.ResponseWriter, r *http.Request) {
-		if r.Method != http.MethodGet {
-			http.Error(w, "Method not allowed", http.StatusMethodNotAllowed)
-			return
-		}
-
-		tmpl, err := template.ParseFiles("templates/index.html")
-		if err != nil {
-			http.Error(w, "Template error", http.StatusInternalServerError)
-			return
-		}
-
-		data := PageData{
-			Title:     "All Concert Locations - Groupie Trackers",
-			Locations: locations,
-			Dates:     dates,
-		}
-
-		if err := tmpl.Execute(w, data); err != nil {
-			http.Error(w, "Render error", http.StatusInternalServerError)
-			return
-		}
-	}
-}

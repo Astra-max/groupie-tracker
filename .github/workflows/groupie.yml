@@ -1,0 +1,30 @@
+name: Build and deploy groupie tracker
+
+on:
+  pull_request:
+    branches:
+    - front-end/maodongo
+  push:
+    branches: [ main ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Setup Go
+      uses: actions/setup-go@v5
+      with:
+        go-version: 1.22
+
+    - name: Install project dependencies
+      run: go mod download
+
+    - name: Run all tests
+      run: go test -v ./tests/...
+
+    - name: Build app
+      run: go build -v ./...
