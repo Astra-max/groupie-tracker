@@ -27,11 +27,11 @@ jobs:
       run: go test -v ./tests/...
 
     - name: Build docker image
-      uses: actions/build-push-action@v2
+      uses: docker/build-push-action@v2
       with:
-      context: .
-      dockerfile: dockerfile
-      push: false
+        context: .
+        file: dockerfile
+        push: false
 
     - name: Build app
       run: go build -v ./...
